@@ -1,0 +1,85 @@
+<div class="example-container">
+    <mat-form-field appearance="fill">
+
+        <mat-card mt- class="example-card">
+            <mat-card-title-group>
+                <mat-card-title>{{indicadores.qtdQuebras}} 47 </mat-card-title>
+                <mat-card-subtitle>Número de Quebras Hoje</mat-card-subtitle>
+                <mat-icon mat-icon mat-card-xl-image mat-card-lg-image>warning</mat-icon>
+            </mat-card-title-group>
+            <mat-card-content>
+                <a link routerLink="" routerLinkActive=" active ">Veja Mais detalhes!</a>
+                <!-- {{longText}} -->
+                <br>
+                <br>
+                <br>
+                <br>
+            </mat-card-content>
+        </mat-card>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" floatLabel="always">
+        <mat-card class="example-card">
+            <mat-card-title-group>
+                <mat-card-title>{{indicadores.qtdOsAberta}} 100 </mat-card-title>
+                <mat-card-subtitle>Número OS Aberta</mat-card-subtitle>
+                <!-- <img mat-card-sm-image src="/src/assets/engrenagem.png"> -->
+                <mat-icon>settings</mat-icon>
+            </mat-card-title-group>
+            <mat-card-content>
+                <!-- {{longText}} -->
+                <a link routerLink="" routerLinkActive=" active ">Veja Mais detalhes!</a>
+                <br>
+                <br>
+                <br>
+                <br>
+
+            </mat-card-content>
+        </mat-card>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" floatLabel="always">
+        <mat-card class="example-card">
+            <mat-card-title-group>
+                <mat-card-title>Backlogs por Prioridade</mat-card-title>
+                <mat-card-subtitle>Urgente
+                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                </mat-card-subtitle>
+                <mat-card-subtitle>Critica
+                    <mat-progress-bar mode="determinate" color="accent" value="100"></mat-progress-bar>
+                </mat-card-subtitle>
+                <mat-card-subtitle>Urgente
+                    <mat-progress-bar mode="determinate" color="warn" value="100"></mat-progress-bar>
+                </mat-card-subtitle>
+                <mat-icon>priority_high</mat-icon>
+
+            </mat-card-title-group>
+            <mat-card-content>
+                <!-- {{longText}} -->
+            </mat-card-content>
+        </mat-card>
+    </mat-form-field>
+
+    <mat-card class="example-card-chart">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Shiba Inu</mat-card-title>
+            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+            <p>
+                The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+        </mat-card-actions>
+    </mat-card>
+
+</div>
+
+<mat-nav-list>
+    <a *ngFor="let item of menuItems" mat-list-item [routerLink]="'/'+item"> {{item | titlecase}} </a>
+</mat-nav-list>

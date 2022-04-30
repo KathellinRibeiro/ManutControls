@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    /*  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(73, 37, 231, 0.945)), url();*/
+    /* background-image: url(../src/assets/indicadores.jpg);*/
+    /* background-color: #7367f0*/
+}

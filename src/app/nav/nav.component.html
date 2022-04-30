@@ -1,0 +1,34 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+          <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    <span>ManutControl</span>
+    <span class="example-spacer"></span>
+    <img src="" class="img-circle person" alt="Random Name" width="255" height="255">
+    <span class="example-spacer"></span>
+
+    <button mat-button [matMenuTriggerFor]="afterMenu"><mat-icon> person_pin</mat-icon>Usuario</button>
+    <mat-menu #afterMenu="matMenu" xPosition="after">
+        <button mat-menu-item><mat-icon>person</mat-icon>Perfil</button>
+        <button mat-menu-item><mat-icon>settings</mat-icon>Configuração</button>
+        <button mat-menu-item><mat-icon>exit_to_app</mat-icon>LogOut</button>
+    </mat-menu>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>share</mat-icon>
+    </button>
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav class="sidenav" color="primary">
+        <mat-nav-list>
+            <a *ngFor="let item of menuItems" mat-list-item [routerLink]="'/'+item"> {{item | titlecase}} </a>
+            <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
