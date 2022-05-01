@@ -9,6 +9,7 @@ import { Result, ResultContent } from 'src/models/result';
 import { MessageService } from 'src/services/messageService';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Setor } from 'src/models/setor';
+import {MatDialog} from '@angular/material/dialog';
 
 import { List } from 'src/app/listTest/setor.js';
 import { Observable, Subject } from 'rxjs';
@@ -63,10 +64,12 @@ export class TableSetorComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatTable) table: MatTable<any>;
 
+
+
   constructor(
     http: HttpClient,
     config: ConfigService,
-    messager: MessageService
+    messager: MessageService,
   ) {
     this._config = config;
     this._http = http;

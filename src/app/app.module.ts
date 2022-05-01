@@ -1,3 +1,4 @@
+import { DislogEditSetorComponent } from './setor/dialog-setor/dislog-edit-setor/dislog-edit-setor.component';
 import { DialogSetorComponent } from './setor/dialog-setor/dialog-setor.component';
 import { AnnualSalesChartComponent } from './annual-sales-chart/annual-sales-chart.component';
 import { Sales } from './sales.services/sales.services.module';
@@ -34,7 +35,6 @@ import { CardComponent } from './card/card.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SetorComponent } from './setor/setor.component';
 import { TableSetorComponent } from './tables/table-setor/table-setor.component';
-import { DislogEditSetorComponent } from './setor/dialog-setor/dislog-edit-setor/dislog-edit-setor.component';
 
 
 @NgModule({

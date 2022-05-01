@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Editar Setor</h1>
+<div mat-dialog-content>
+    <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Id Setor</mat-label>
+        <input matInput type="text" [(ngModel)]="value">
+        <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+    <mat-icon>close</mat-icon>
+  </button>
+    </mat-form-field>
+    <div>
+        <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Nome do Setor</mat-label>
+            <input matInput type="text" [(ngModel)]="value">
+            <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+      </button>
+        </mat-form-field>
+    </div>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary">Salvar</button>
+</div>
