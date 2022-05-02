@@ -33,6 +33,13 @@ import { CardComponent } from './card/card.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SetorComponent } from './setor/setor.component';
 import { TableSetorComponent } from './tables/table-setor/table-setor.component';
+import { EquipamentosComponent } from './equipamentos/equipamentos.component';
+import { EstoquesComponent } from './estoques/estoques.component';
+import { ManutencoesComponent } from './manutencoes/manutencoes.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
   declarations: [
@@ -48,6 +55,9 @@ import { TableSetorComponent } from './tables/table-setor/table-setor.component'
     DashboardComponent,
     SetorComponent,
     TableSetorComponent,
+    EquipamentosComponent,
+    ManutencoesComponent,
+    EstoquesComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +78,9 @@ import { TableSetorComponent } from './tables/table-setor/table-setor.component'
    MatCardModule,
    MatMenuModule,
    Sales,
-   HttpClientModule
+   HttpClientModule,
+   MatSlideToggleModule,
+   NgxMaskModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
