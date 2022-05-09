@@ -3,18 +3,18 @@
         <mat-card-header>
             <mat-card-title>Acessar</mat-card-title>
         </mat-card-header>
-        <form class="example-form">
+        <!-- <form class="example-form"> -->
             <mat-card-content>
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Usuario">
+                    <input matInput placeholder="Usuario" [(ngModel)]="emailString"  >
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Senha">
+                    <input matInput placeholder="Senha" type="password" [(ngModel)]="senhaString">
                 </mat-form-field>
             </mat-card-content>
-            <a button mat-stroked-button routerLink="/home" routerLinkActive="active" color="primary" class="btn-block">Entrar</a>
+            <a button mat-stroked-button (click)="login()" color="primary" class="btn-block">Entrar</a>
             <br><a routerLink="/register" routerLinkActive="active">Não possui acesso? Clique aqui!</a>
-        </form>
+        <!-- </form> -->
     </mat-card>
     <router-outlet></router-outlet>
 </div>

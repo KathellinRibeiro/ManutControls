@@ -1,8 +1,10 @@
 export class Estoque {
-    Peca?: string;
+    _id?: string;
+    Descricao?: string;
     Equipamento?: string;
     Quantidade?: number;
-    DataRecebimento?: Date;
+    QuantidadeMinima?: number;
+    DataEntrada?: Date;
     DataSaida?: Date;
-    CustoMedio?: number;
+    Custo?: number;
 }

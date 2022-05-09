@@ -9,23 +9,24 @@ import { Result, ResultContent } from 'src/models/result';
 import { MessageService } from 'src/services/messageService';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Equipament } from 'src/models/equipamento';
+import { Criticidade } from 'src/models/Criticidade';
+import { EquipamentoService } from '../services/serviceEquipamento/equipamento.service';
 
 import { List } from 'src/app/listTest/setor.js';
 import { Observable, Subject } from 'rxjs';
 import { Status } from 'src/models/Status';
 
-var tipoEquip: Equipament[] = [
+/* var tipoEquip: Equipament[] = [
   { TipoEquip: "Equipamento 1"},
   { TipoEquip: "Equipamento 2"},
   { TipoEquip: "Equipamento 3"},
-];
+]; */
 
-var statusMaq: Equipament[] = [
-  { StatusDesc: "Ativo", Status: true },
-  { StatusDesc: "Inativo", Status: false},
-];
+var tipoEquip: Equipament[] = []
 
-var Setores: Equipament[] =
+var statusMaq: Status;
+
+/* var Setores: Equipament[] =
 [
   { Setor: "TI" },
   { Setor: "Automações" },
@@ -37,14 +38,14 @@ var Setores: Equipament[] =
   { Setor: "Produção l" },
   { Setor: "Produção m" },
   { Setor: "Produção b" }
-]
+] */
 
-var Criticidade: Equipament[] =
+/* var Criticidade: Equipament[] =
 [
   { CriticidadeDesc: "Baixa" },
   { CriticidadeDesc: "Média" },
   { CriticidadeDesc: "Alta" },
-]
+] */
 
 var tagsEquip: Equipament[] =
 [
@@ -53,14 +54,15 @@ var tagsEquip: Equipament[] =
   { Tag: "KDO-003-007" },
 ]
 
-var list: Equipament[] = [
+var list: Equipament[] = []
+/* var list: Equipament[] = [
   { Id: 1, TipoEquip: "Equipamento 1", Tag: "IRJ-002-004", StatusDesc: "Ativo", Status: true, dataEntrada: new Date(Date.parse("01/01/2022")), Setor: "Produção x", CriticidadeDesc: "Baixa" },
   { Id: 2, TipoEquip: "Equipamento 2", Tag: "KDO-003-007", StatusDesc: "Ativo", Status: true, dataEntrada: new Date(Date.parse("03/22/2022")), Setor: "Produção y", CriticidadeDesc: "Média" },
   { Id: 3, TipoEquip: "Equipamento 1", Tag: "IRJ-002-004", StatusDesc: "Inativo", Status: false, dataEntrada: new Date(Date.parse("12/11/2022")), Setor: "Produção z", CriticidadeDesc: "Alta" },
   { Id: 4, TipoEquip: "Equipamento 3", Tag: "ETQ-001-002", StatusDesc: "Ativo", Status: true, dataEntrada: new Date(Date.parse("02/25/2022")), Setor: "Produção k", CriticidadeDesc: "Baixa" },
   { Id: 5, TipoEquip: "Equipamento 3", Tag: "ETQ-001-002", StatusDesc: "Ativo", Status: true, dataEntrada: new Date(Date.parse("09/09/2022")), Setor: "Produção l", CriticidadeDesc: "Alta" },
   { Id: 6, TipoEquip: "Equipamento 1", Tag: "KDO-003-007", StatusDesc: "Inativo", Status: false, dataEntrada: new Date(Date.parse("11/03/2022")), Setor: "Produção m", CriticidadeDesc: "Média" },
-]
+] */
 
 const subject: Subject<void> = new Subject();
 const observable: Observable<void> = subject.asObservable();  
@@ -75,19 +77,21 @@ export class EquipamentosComponent implements AfterViewInit {
   private _config: ConfigService;
   private _messager: MessageService;
   equipaments=tipoEquip;
-  statusMaqs=statusMaq;
-  setoress=Setores;
-  crits=Criticidade;
+  statusMaqs=[];
+  status=Status;
+  crits=[];
+  criticidade=Criticidade;
   tags=tagsEquip;
-
+  lists=list;
+  
 
   equipamentoSelect: string;
-  statusSelect: string;
+  statusSelect = null;
   setorSelect: string;
-  critSelect: string;
+  critSelect = null;
   tagsSelect: string;
 
-  displayedColumns: string[] = ['id', 'Equipamento', 'Tag Equipamento', 'Status do Equipamento', 'Dia da Aquisição', 'Setor', 'Criticidade', 'Ações'];
+  displayedColumns: string[] = ['id', 'Equipamento', 'Tag Equipamento', 'Status do Equipamento', 'Dia da Aquisição', 'Criticidade', 'Ações'];
   dataSource: MatTableDataSource<Equipament>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -95,12 +99,24 @@ export class EquipamentosComponent implements AfterViewInit {
 
   constructor(http: HttpClient,
     config: ConfigService,
-    messager: MessageService) { 
+    messager: MessageService,
+    private equipamentoService: EquipamentoService) { 
       this._config = config;
       this._http = http;
       this._messager = messager;
 
-      this.getEquipamentos();
+      this.statusMaqs = Object.keys(this.status).filter(f => !isNaN(Number(f)));
+      this.crits = Object.keys(this.criticidade).filter(f => !isNaN(Number(f)));
+
+      this.equipamentoService.getEquipamentos().subscribe(res => {
+        console.log(res);
+        console.log("Deu get denovo!");
+        this.lists = res;
+        this.dataSource = new MatTableDataSource<Equipament>(this.lists);
+        this.dataSource.paginator = this.paginator;
+      })
+
+      //this.getEquipamentos();
     }
 
     ngAfterViewInit() {

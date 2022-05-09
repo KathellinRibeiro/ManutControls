@@ -36,8 +36,17 @@ import { TableSetorComponent } from './tables/table-setor/table-setor.component'
 import { EquipamentosComponent } from './equipamentos/equipamentos.component';
 import { EstoquesComponent } from './estoques/estoques.component';
 import { ManutencoesComponent } from './manutencoes/manutencoes.component';
+import { DialogSetorComponent } from './setor/dialog-setor/dialog-setor.component';
+import { DislogEditSetorComponent } from './setor/dialog-setor/dislog-edit-setor/dislog-edit-setor.component';
+import { DialogDeleteSetorComponent } from './setor/dialog-setor/dialog-delete-setor/dialog-delete-setor.component';
+import { DeleteComponent } from './dialog/dialog-delete/delete/delete.component';
+import { EstoqueDialogComponent } from './dialog/dialog-estoque/estoque-dialog/estoque-dialog.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -58,6 +67,11 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     EquipamentosComponent,
     ManutencoesComponent,
     EstoquesComponent,
+    DialogSetorComponent,
+    DislogEditSetorComponent,
+    DialogDeleteSetorComponent,
+    EstoqueDialogComponent,
+    DeleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,6 +95,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
    HttpClientModule,
    MatSlideToggleModule,
    NgxMaskModule.forRoot(),
+   MatDialogModule,
+   MatDatepickerModule,
+   MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

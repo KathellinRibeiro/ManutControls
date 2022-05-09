@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Aviso</h1>
+<mat-dialog-content class="mat-typography">
+    <h3>Deseja mesmo excluir esse Setor?</h3>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click)="onNoClick()">Não</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Sim</button>
+</mat-dialog-actions>

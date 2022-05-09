@@ -5,12 +5,12 @@
                 <mat-label>Peças</mat-label>
                 <mat-select [(ngModel)]="pecaSelect" (ngModelChange)="pecaFilter()">
                     <mat-option value=''>Selecione</mat-option>
-                    <mat-option *ngFor="let peca of pecas" value={{peca.Peca}}>
-                        {{peca.Peca}}
+                    <mat-option *ngFor="let peca of pecas" value={{peca.Descricao}}>
+                        {{peca.Descricao}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field appearance="fill">
+            <!-- <mat-form-field appearance="fill">
                 <mat-label>Equipamento</mat-label>
                 <mat-select [(ngModel)]="equipamentoSelect" (ngModelChange)="equipamentoFilter()">
                     <mat-option value=''>Selecione</mat-option>
@@ -18,7 +18,7 @@
                         {{equip.Equipamento}}
                     </mat-option>
                 </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
             <mat-form-field appearance="standard">
                 <mat-label>Pesquisar</mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
@@ -28,25 +28,25 @@
             <table mat-table [dataSource]="dataSource" matSort>
                 <ng-container matColumnDef="Peca">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Peça </th>
-                    <td mat-cell *matCellDef="let equip"><button mat-raised-button color="primary">{{equip.Peca}}</button></td>
+                    <td mat-cell *matCellDef="let equip"><button mat-raised-button color="primary">{{equip.Descricao}}</button></td>
                 </ng-container>
-                <ng-container matColumnDef="Equipamento">
+                <!-- <ng-container matColumnDef="Equipamento">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Equipamento </th>
                     <td mat-cell *matCellDef="let equip">{{equip.Equipamento}}</td>
-                </ng-container>
+                </ng-container> -->
                 <ng-container matColumnDef="Quantidade">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantidade </th>
                     <td mat-cell *matCellDef="let equip">
                         {{equip.Quantidade}}
                         &nbsp;&nbsp;
-                        <div [ngStyle]="{'display' : 'inline'}" *ngIf="equip.Quantidade < 5">
+                        <div [ngStyle]="{'display' : 'inline'}" *ngIf="equip.Quantidade < equip.QuantidadeMinima">
                             <mat-icon>report_problem</mat-icon>
                         </div>
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="DataRecebimento">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Data do Último Recebimento </th>
-                    <td mat-cell *matCellDef="let equip">{{equip.DataRecebimento | date: 'dd/MM/yyyy'}}</td>
+                    <td mat-cell *matCellDef="let equip">{{equip.DataEntrada | date: 'dd/MM/yyyy'}}</td>
                 </ng-container>
                 <ng-container matColumnDef="DataSaida">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Data da Última Saída </th>
@@ -54,18 +54,15 @@
                 </ng-container>
                 <ng-container matColumnDef="CustoMedio">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Custo Médio </th>
-                    <td mat-cell *matCellDef="let equip">R$ {{equip.CustoMedio}}</td>
+                    <td mat-cell *matCellDef="let equip">R$ {{equip.Custo}}</td>
                 </ng-container>
                 <ng-container matColumnDef="Ações">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Ações </th>
                     <td mat-cell *matCellDef="let equip">
-                        <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon">
-                            <mat-icon>add</mat-icon>
-                        </button>
-                        <button mat-mini-fab color="accent" aria-label="Example icon button with a delete icon">
+                        <button mat-mini-fab color="accent" (click)="openDialog(equip)" aria-label="Example icon button with a delete icon">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon">
+                        <button mat-mini-fab color="warn" (click)="openDialogDelete(equip)" aria-label="Example icon button with a delete icon">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>
@@ -79,5 +76,9 @@
             </table>
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
         </div>
+        
+        <button mat-mini-fab color="primary" (click)="openDialogAdd()" [ngStyle]="{'margin' : '10px', 'margin-left' : '95%'}" aria-label="Example icon button with a delete icon">
+            <mat-icon>add</mat-icon>
+        </button>
     </mat-card>
 </mat-card>

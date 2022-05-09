@@ -12,7 +12,7 @@ import { ManutencoesComponent } from './manutencoes/manutencoes.component';
 import { EstoquesComponent } from './estoques/estoques.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent },
