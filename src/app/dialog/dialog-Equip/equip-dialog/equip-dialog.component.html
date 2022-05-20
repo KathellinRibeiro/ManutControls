@@ -1,0 +1,55 @@
+<h1 mat-dialog-title>Equipamento</h1>
+<div mat-dialog-content>
+    <div [ngStyle]="{'float': 'left', 'width': '49%'}">
+        <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Equipamento</mat-label>
+            <input matInput type="text" [(ngModel)]="data.Descricao">
+        </mat-form-field>
+        <div [ngStyle]="{'display': 'block', 'width': '100%'}"></div>
+        <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Tag Equipamento</mat-label>
+            <input matInput type="text" [(ngModel)]="data.Tag">
+        </mat-form-field>
+        <div [ngStyle]="{'display': 'block', 'width': '100%'}"></div>
+        <mat-form-field appearance="fill">
+            <mat-label>Status da Máquina</mat-label>
+            <mat-select [(ngModel)]="data.Status">
+                <mat-option value=''>Selecione</mat-option>
+                <mat-option *ngFor="let stats of statusMaqs" value={{stats.Status}}>
+                    {{stats.Status}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div [ngStyle]="{'float': 'right', 'width': '49%'}">
+        <mat-form-field appearance="fill">
+            <mat-label>Data do Último Recebimento</mat-label>
+            <input matInput mask="d0/M0/0000" [(ngModel)]="data.dataEntrada">
+        </mat-form-field>
+        <div [ngStyle]="{'display': 'block', 'width': '100%'}"></div>
+        <mat-form-field appearance="fill">
+            <mat-label>Setor</mat-label>
+            <mat-select [(ngModel)]="data.Local">
+                <mat-option value=''>Selecione</mat-option>
+                <mat-option *ngFor="let stats of setoress" value={{stats.Nome}}>
+                    {{stats.Nome}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div [ngStyle]="{'display': 'block', 'width': '100%'}"></div>
+        <mat-form-field appearance="fill">
+            <mat-label>Criticidade da Máquina</mat-label>
+            <mat-select [(ngModel)]="data.Criticidade">
+                <mat-option value=''>Selecione</mat-option>
+                <mat-option *ngFor="let crit of crits" value={{crit.Criticidade}}>
+                    {{crit.Criticidade}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div [ngStyle]="{'clear': 'both'}"></div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close (click)="onNoClick()">Close</button>
+    <button mat-raised-button [mat-dialog-close]="data" color="primary">Salvar</button>
+</div>

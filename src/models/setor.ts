@@ -1,4 +1,4 @@
 export class Setor {
-  public id: number;
-  public nome: string;
+  public _id: string;
+  public Nome?: string;
 }

@@ -9,7 +9,14 @@ import { Result, ResultContent } from 'src/models/result';
 import { MessageService } from 'src/services/messageService';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Setor } from 'src/models/setor';
+<<<<<<< HEAD
 import {MatDialog} from '@angular/material/dialog';
+=======
+import { SetorService } from 'src/app/services/setor.service';
+import {MatDialog} from '@angular/material/dialog';
+import { DislogEditSetorComponent } from 'src/app/setor/dialog-setor/dislog-edit-setor/dislog-edit-setor.component';
+import { DialogDeleteSetorComponent } from 'src/app/setor/dialog-setor/dialog-delete-setor/dialog-delete-setor.component';
+>>>>>>> branchVini
 
 import { List } from 'src/app/listTest/setor.js';
 import { Observable, Subject } from 'rxjs';
@@ -20,7 +27,7 @@ export interface UserData {
   fruit: string;
 }
 
-var Setores: Setor[] =
+/* var Setores: Setor[] =
 [
   { id: 1, nome: "TI" },
   { id: 2, nome: "Automações" },
@@ -32,7 +39,8 @@ var Setores: Setor[] =
   { id: 8, nome: "Produção l" },
   { id: 9, nome: "Produção m" },
   { id: 0, nome: "Produção b" }
-]
+] */
+var Setores: Setor[] = [];
 
 
 
@@ -70,6 +78,11 @@ export class TableSetorComponent implements AfterViewInit {
     http: HttpClient,
     config: ConfigService,
     messager: MessageService,
+<<<<<<< HEAD
+=======
+    private setorServices: SetorService,
+    public dialog: MatDialog
+>>>>>>> branchVini
   ) {
     this._config = config;
     this._http = http;
@@ -83,9 +96,93 @@ export class TableSetorComponent implements AfterViewInit {
   } */
 
     //this.getSetor();
-
-    this.getSetores();
+    this.setorServices.getSetores().subscribe(res => {
+      console.log(res);
+      this.setoress = res;
+      this.dataSource = new MatTableDataSource<Setor>(this.setoress);
+      this.dataSource.paginator = this.paginator;
+    })
+    //this.getSetores();
   }
+  openDialog(setor: Setor) {
+    const dialogRef = this.dialog.open(DislogEditSetorComponent, {
+      data: {
+        _id: setor._id,
+        Nome: setor.Nome,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("Deu certo!");
+      var setorModel: Setor = result;
+
+      this.setorServices.updateSetor(setorModel._id, setorModel).subscribe(() => {
+        console.log("Deu certo denovo cara!");
+      })
+
+      this.setorServices.getSetores().subscribe(res => {
+        console.log(res);
+        console.log("Deu get denovo!");
+        this.setoress = res;
+        this.dataSource = new MatTableDataSource<Setor>(this.setoress);
+        this.dataSource.paginator = this.paginator;
+      })
+    });
+  }
+
+  openDialogAdd(){
+    const dialogRef = this.dialog.open(DislogEditSetorComponent, {
+      data: {
+        _id: '',
+        Nome: ''
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Incluiu!');
+      var setorModel: Setor = result;
+
+      setorModel._id = "";
+
+      this.setorServices.adicionalSetor(setorModel).subscribe(() => {
+        console.log('Incluiu de vdd!');
+      })
+
+      this.setorServices.getSetores().subscribe(res => {
+        console.log(res);
+        console.log("Deu get denovo!");
+        this.setoress = res;
+        this.dataSource = new MatTableDataSource<Setor>(this.setoress);
+        this.dataSource.paginator = this.paginator;
+      })
+    })
+  }
+
+  openDialogDelete(setor: Setor){
+    const dialogRef = this.dialog.open(DialogDeleteSetorComponent, {
+      data: {
+        _id: setor._id,
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('por enquanto, blz');
+      var setorModal: Setor = result;
+
+      this.setorServices.deleteSetor(setorModal._id).subscribe(() => {
+        console.log('Excluiu!');
+      })
+
+      this.setorServices.getSetores().subscribe(res => {
+        console.log(res);
+        console.log("Deu get denovo!");
+        this.setoress = res;
+        this.dataSource = new MatTableDataSource<Setor>(this.setoress);
+        this.dataSource.paginator = this.paginator;
+      })
+    })
+  }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     //this.dataSource.sort = this.sort;

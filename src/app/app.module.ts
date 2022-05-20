@@ -35,6 +35,24 @@ import { CardComponent } from './card/card.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SetorComponent } from './setor/setor.component';
 import { TableSetorComponent } from './tables/table-setor/table-setor.component';
+import { EquipamentosComponent } from './equipamentos/equipamentos.component';
+import { EstoquesComponent } from './estoques/estoques.component';
+import { ManutencoesComponent } from './manutencoes/manutencoes.component';
+import { DialogSetorComponent } from './setor/dialog-setor/dialog-setor.component';
+import { DislogEditSetorComponent } from './setor/dialog-setor/dislog-edit-setor/dislog-edit-setor.component';
+import { DialogDeleteSetorComponent } from './setor/dialog-setor/dialog-delete-setor/dialog-delete-setor.component';
+import { DeleteComponent } from './dialog/dialog-delete/delete/delete.component';
+import { EstoqueDialogComponent } from './dialog/dialog-estoque/estoque-dialog/estoque-dialog.component';
+import { EquipDialogComponent } from './dialog/dialog-Equip/equip-dialog/equip-dialog.component';
+import { ManutDialogComponent } from './dialog/dialog-Manut/manut-dialog/manut-dialog.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 
 @NgModule({
@@ -51,8 +69,21 @@ import { TableSetorComponent } from './tables/table-setor/table-setor.component'
     DashboardComponent,
     SetorComponent,
     TableSetorComponent,
+<<<<<<< HEAD
     DialogSetorComponent,
     DislogEditSetorComponent
+=======
+    EquipamentosComponent,
+    ManutencoesComponent,
+    EstoquesComponent,
+    DialogSetorComponent,
+    DislogEditSetorComponent,
+    DialogDeleteSetorComponent,
+    EstoqueDialogComponent,
+    DeleteComponent,
+    EquipDialogComponent,
+    ManutDialogComponent,
+>>>>>>> branchVini
   ],
   imports: [
     BrowserModule,
@@ -73,7 +104,12 @@ import { TableSetorComponent } from './tables/table-setor/table-setor.component'
    MatCardModule,
    MatMenuModule,
    Sales,
-   HttpClientModule
+   HttpClientModule,
+   MatSlideToggleModule,
+   NgxMaskModule.forRoot(),
+   MatDialogModule,
+   MatDatepickerModule,
+   MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

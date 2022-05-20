@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Estoque</h1>
+<div mat-dialog-content>
+    <div [ngStyle]="{'float': 'left', 'width': '49%'}">
+        <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Peça</mat-label>
+            <input matInput type="text" [(ngModel)]="data.Descricao">
+        </mat-form-field>
+        <div [ngStyle]="{'display': 'block', 'width': '100%'}"></div>
+        <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Quantidade</mat-label>
+            <input matInput type="text" [(ngModel)]="data.Quantidade" mask="0000" [required]>
+        </mat-form-field>
+        <div [ngStyle]="{'display': 'block', 'width': '100%'}"></div>
+        <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Quantidade Mínima</mat-label>
+            <input matInput type="text" [(ngModel)]="data.QuantidadeMinima" mask="0000" [required]>
+        </mat-form-field>
+    </div>
+    <div [ngStyle]="{'float': 'right', 'width': '49%'}">
+        <mat-form-field appearance="fill">
+            <mat-label>Data do Último Recebimento</mat-label>
+            <input matInput mask="d0/M0/0000" [(ngModel)]="data.DataEntrada">
+        </mat-form-field>
+        <div [ngStyle]="{'display': 'block', 'width': '100%'}"></div>
+        <mat-form-field appearance="fill">
+            <mat-label>Data da Última Saída</mat-label>
+                <input matInput mask="d0/M0/0000" [(ngModel)]="data.DataSaida">
+            </mat-form-field>
+        <div [ngStyle]="{'display': 'block', 'width': '100%'}"></div>
+        <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Custo Médio</mat-label>
+            <input matInput type="text" [(ngModel)]="data.Custo" mask="000000" [required]>
+        </mat-form-field>
+    </div>
+    <div [ngStyle]="{'clear': 'both'}"></div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close (click)="onNoClick()">Close</button>
+    <button mat-raised-button [mat-dialog-close]="data" color="primary">Salvar</button>
+</div>

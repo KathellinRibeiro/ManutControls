@@ -1,0 +1,126 @@
+<mat-card>
+    <mat-card>
+        <div class="example-container">
+            <div [ngStyle]="{'float': 'left', 'width': '49%'}">
+                <mat-form-field appearance="fill">
+                    <mat-label>Tipo de Manutenção</mat-label>
+                    <mat-select [(ngModel)]="tipoManutencaoSelect" (ngModelChange)="tipoManutencaoFilter()">
+                        <mat-option value=''>Selecione</mat-option>
+                        <mat-option *ngFor="let manu of tipomanutencoes" value={{manu.Tipo}}>
+                            {{manu.Tipo}}
+                        </mat-option>
+                        
+                    </mat-select>
+                </mat-form-field>
+                <div [ngStyle]="{'display': 'block', 'width': '100%'}"></div>
+                <!-- <mat-form-field appearance="fill">
+                    <mat-label>Status da Manutenção</mat-label>
+                    <mat-select [(ngModel)]="statusManutencaoSelect" (ngModelChange)="statusManutencaoFilter()">
+                        <mat-option value=''>Selecione</mat-option>
+                        <mat-option *ngFor="let statusManu of statusManus" value={{statusManu.StatusManutencao}}>
+                            {{statusManu.StatusManutencao}}
+                        </mat-option>
+                        
+                    </mat-select>
+                </mat-form-field> -->
+                <div [ngStyle]="{'display': 'block', 'width': '100%'}"></div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Equipamento</mat-label>
+                    <mat-select [(ngModel)]="equipamentoSelect" (ngModelChange)="equipamentoFilter()">
+                        <mat-option value=''>Selecione</mat-option>
+                        <mat-option *ngFor="let manut of manutencoess" value={{manut.Equipamento}}>
+                            {{manut.Equipamento}}
+                        </mat-option>
+                        
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div [ngStyle]="{'float': 'right', 'width': '49%'}">
+                <mat-form-field appearance="fill">
+                    <mat-label>Responsável</mat-label>
+                    <mat-select [(ngModel)]="responsavelSelect" (ngModelChange)="responsavelFilter()">
+                        <mat-option value=''>Selecione</mat-option>
+                        <mat-option *ngFor="let responsavel of manutencoess" value={{responsavel.Funcionario}}>
+                            {{responsavel.Funcionario}}
+                        </mat-option>
+                        
+                    </mat-select>
+                </mat-form-field>
+                <div [ngStyle]="{'display': 'block', 'width': '100%'}"></div>
+                <mat-form-field appearance="standard">
+                    <mat-label>Data</mat-label>
+                    <input matInput (keyup)="dataFilter($event)" placeholder="ex.: dd/MM/yyyy" mask="d0/M0/0000" #input>
+                </mat-form-field>
+            </div>
+            <mat-form-field appearance="standard">
+                <mat-label>Pesquisar</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+            </mat-form-field>
+        </div>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort>
+                <!-- <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+                    <td mat-cell *matCellDef="let manu"> {{manu.Id}} </td>
+                </ng-container> -->
+                <ng-container matColumnDef="tipoManutencao">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de Manutenção </th>
+                    <td mat-cell *matCellDef="let manu">
+                        <div *ngIf="manu.Tipo == 'Corretiva'; else otherTwoCrit">
+                            <button mat-raised-button color="warn">{{manu.Tipo}}</button>
+                        </div>
+                        <ng-template #otherTwoCrit>
+                            <div *ngIf="manu.Tipo == 'Preventiva'; else otherCrit">
+                                <button mat-raised-button color="accent">{{manu.Tipo}}</button>
+                            </div>
+                            <ng-template #otherCrit><button mat-raised-button color="basic">{{manu.Tipo}}</button></ng-template>
+                        </ng-template>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="resumoManutencao">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Resumo da Manutenção </th>
+                    <td mat-cell *matCellDef="let manu"> {{manu.Descricao}} </td>
+                </ng-container>
+                <!-- <ng-container matColumnDef="statusManutencao">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status da Manutenção </th>
+                    <td mat-cell *matCellDef="let manu"> {{manu.StatusManutencao}} </td>
+                </ng-container> -->
+                <ng-container matColumnDef="diaAbertura">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Dia da Abertura </th>
+                    <td mat-cell *matCellDef="let manu"> {{manu.Data | date:"dd/MM/yyyy"}} </td>
+                </ng-container>
+                <ng-container matColumnDef="setor">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Equipamento</th>
+                    <td mat-cell *matCellDef="let manu"> {{manu.Equipamento}} </td>
+                </ng-container>
+                <ng-container matColumnDef="responsavel">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Responsável </th>
+                    <td mat-cell *matCellDef="let manu"> {{manu.Funcionario}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Ações">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Ações </th>
+                    <td mat-cell *matCellDef="let equip">
+                        <button mat-mini-fab color="accent" (click)="openDialog(equip)" aria-label="Example icon button with a delete icon">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                        <button mat-mini-fab color="warn" (click)="openDialogDelete(equip)" aria-label="Example icon button with a delete icon">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+    
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        </div>
+        <button mat-mini-fab color="primary" (click)="openDialogAdd()" [ngStyle]="{'margin' : '10px', 'margin-left' : '95%'}" aria-label="Example icon button with a delete icon">
+            <mat-icon>add</mat-icon>
+        </button>
+        <div [ngStyle]="{'clear': 'both'}"></div>
+    </mat-card>
+</mat-card>
