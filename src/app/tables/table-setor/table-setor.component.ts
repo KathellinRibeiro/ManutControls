@@ -9,14 +9,10 @@ import { Result, ResultContent } from 'src/models/result';
 import { MessageService } from 'src/services/messageService';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Setor } from 'src/models/setor';
-<<<<<<< HEAD
-import {MatDialog} from '@angular/material/dialog';
-=======
 import { SetorService } from 'src/app/services/setor.service';
 import {MatDialog} from '@angular/material/dialog';
 import { DislogEditSetorComponent } from 'src/app/setor/dialog-setor/dislog-edit-setor/dislog-edit-setor.component';
 import { DialogDeleteSetorComponent } from 'src/app/setor/dialog-setor/dialog-delete-setor/dialog-delete-setor.component';
->>>>>>> branchVini
 
 import { List } from 'src/app/listTest/setor.js';
 import { Observable, Subject } from 'rxjs';
@@ -78,11 +74,8 @@ export class TableSetorComponent implements AfterViewInit {
     http: HttpClient,
     config: ConfigService,
     messager: MessageService,
-<<<<<<< HEAD
-=======
     private setorServices: SetorService,
     public dialog: MatDialog
->>>>>>> branchVini
   ) {
     this._config = config;
     this._http = http;

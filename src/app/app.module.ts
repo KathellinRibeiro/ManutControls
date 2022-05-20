@@ -1,5 +1,3 @@
-import { DislogEditSetorComponent } from './setor/dialog-setor/dislog-edit-setor/dislog-edit-setor.component';
-import { DialogSetorComponent } from './setor/dialog-setor/dialog-setor.component';
 import { AnnualSalesChartComponent } from './annual-sales-chart/annual-sales-chart.component';
 import { Sales } from './sales.services/sales.services.module';
 import { LineChartComponent } from './charts/line-chart/line-chart.component';
@@ -69,10 +67,6 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     DashboardComponent,
     SetorComponent,
     TableSetorComponent,
-<<<<<<< HEAD
-    DialogSetorComponent,
-    DislogEditSetorComponent
-=======
     EquipamentosComponent,
     ManutencoesComponent,
     EstoquesComponent,
@@ -83,7 +77,6 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     DeleteComponent,
     EquipDialogComponent,
     ManutDialogComponent,
->>>>>>> branchVini
   ],
   imports: [
     BrowserModule,
