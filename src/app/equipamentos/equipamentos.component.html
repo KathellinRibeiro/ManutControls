@@ -9,7 +9,6 @@
                         <mat-option *ngFor="let equip of equipaments" value={{equip.Descricao}}>
                             {{equip.Descricao}}
                         </mat-option>
-                        
                     </mat-select>
                 </mat-form-field>
                 <div [ngStyle]="{'display': 'block', 'width': '100%'}"></div>
@@ -17,8 +16,8 @@
                     <mat-label>Status da Máquina</mat-label>
                     <mat-select [(ngModel)]="statusSelect" (ngModelChange)="statusMaquinaFilter()">
                         <mat-option value=''>Selecione</mat-option>
-                        <mat-option *ngFor="let stats of statusMaqs" [value]="stats">
-                            {{status[stats]}}
+                        <mat-option *ngFor="let stats of statusMaqs" value={{stats.StatusDesc}}>
+                            {{stats.StatusDesc}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -39,8 +38,8 @@
                     <mat-label>Criticidade da Máquina</mat-label>
                     <mat-select [(ngModel)]="critSelect" (ngModelChange)="critFilter()">
                         <mat-option value=''>Selecione</mat-option>
-                        <mat-option *ngFor="let crit of crits" [value]="crit">
-                            {{criticidade[crit]}}
+                        <mat-option *ngFor="let crit of crits" value={{crit.Criticidade}}>
+                            {{crit.Criticidade}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -49,7 +48,7 @@
                     <mat-label>TAG Equipamento</mat-label>
                     <mat-select [(ngModel)]="tagsSelect" (ngModelChange)="tagFilter()">
                         <mat-option value=''>Selecione</mat-option>
-                        <mat-option *ngFor="let tag of tags" value={{tag.Tag}}>
+                        <mat-option *ngFor="let tag of equipaments" value={{tag.Tag}}>
                             {{tag.Tag}}
                         </mat-option>
                     </mat-select>
@@ -64,10 +63,10 @@
         <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource" matSort>
     
-                <ng-container matColumnDef="id">
+                <!-- <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
                     <td mat-cell *matCellDef="let equip"> {{equip.Id}} </td>
-                </ng-container>
+                </ng-container> -->
     
                 <ng-container matColumnDef="Equipamento">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Equipamento </th>
@@ -81,11 +80,11 @@
 
                 <ng-container matColumnDef="Status do Equipamento">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Status Equipamento </th>
-                    <td mat-cell *matCellDef="let equip">
-                        <mat-slide-toggle [(ngModel)]="equip.Status">
+                    <td mat-cell *matCellDef="let equip"> {{equip.Status}}
+                        <!-- <mat-slide-toggle [(ngModel)]="equip.Status">
                             <p *ngIf="equip.Status == true; else nameInativo"> Ativo</p>
                             <ng-template #nameInativo><p> Inativo</p></ng-template>
-                        </mat-slide-toggle>
+                        </mat-slide-toggle> -->
                     </td>
                 </ng-container>
 
@@ -94,22 +93,22 @@
                     <td mat-cell *matCellDef="let equip">{{equip.dataEntrada | date: "dd/MM/yyyy"}}</td>
                 </ng-container>
 
-                <!-- <ng-container matColumnDef="Setor">
+                <ng-container matColumnDef="Setor">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Setor </th>
-                    <td mat-cell *matCellDef="let equip">{{equip.Setor}}</td>
-                </ng-container> -->
+                    <td mat-cell *matCellDef="let equip">{{equip.Local}}</td>
+                </ng-container>
 
                 <ng-container matColumnDef="Criticidade">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Criticidade </th>
                     <td mat-cell *matCellDef="let equip">
-                        <div *ngIf="equip.CriticidadeDesc == 'Alta'; else otherTwoCrit">
-                            <button mat-raised-button color="warn">{{equip.CriticidadeDesc}}</button>
+                        <div *ngIf="equip.Criticidade == 'Alta'; else otherTwoCrit">
+                            <button mat-raised-button color="warn">{{equip.Criticidade}}</button>
                         </div>
                         <ng-template #otherTwoCrit>
-                            <div *ngIf="equip.CriticidadeDesc == 'Média'; else otherCrit">
-                                <button mat-raised-button color="accent">{{equip.CriticidadeDesc}}</button>
+                            <div *ngIf="equip.Criticidade == 'Média'; else otherCrit">
+                                <button mat-raised-button color="accent">{{equip.Criticidade}}</button>
                             </div>
-                            <ng-template #otherCrit><button mat-raised-button color="basic">{{equip.CriticidadeDesc}}</button></ng-template>
+                            <ng-template #otherCrit><button mat-raised-button color="basic">{{equip.Criticidade}}</button></ng-template>
                         </ng-template>
                     </td>
                 </ng-container>
@@ -117,13 +116,10 @@
                 <ng-container matColumnDef="Ações">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Ações </th>
                     <td mat-cell *matCellDef="let equip">
-                        <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon">
-                        <mat-icon>add</mat-icon>
-                      </button>
-                        <button mat-mini-fab color="accent" aria-label="Example icon button with a delete icon">
+                        <button mat-mini-fab color="accent" (click)="openDialog(equip)" aria-label="Example icon button with a delete icon">
                       <mat-icon>edit</mat-icon>
                     </button>
-                        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon">
+                        <button mat-mini-fab color="warn" (click)="openDialogDelete(equip)" aria-label="Example icon button with a delete icon">
                       <mat-icon>delete</mat-icon>
                     </button>
     
@@ -140,6 +136,9 @@
     
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
         </div>
+        <button mat-mini-fab color="primary" (click)="openDialogAdd()" [ngStyle]="{'margin' : '10px', 'margin-left' : '95%'}" aria-label="Example icon button with a delete icon">
+            <mat-icon>add</mat-icon>
+        </button>
         <div [ngStyle]="{'clear': 'both'}"></div>
     </mat-card>
 </mat-card>

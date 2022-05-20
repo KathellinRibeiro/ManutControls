@@ -41,6 +41,8 @@ import { DislogEditSetorComponent } from './setor/dialog-setor/dislog-edit-setor
 import { DialogDeleteSetorComponent } from './setor/dialog-setor/dialog-delete-setor/dialog-delete-setor.component';
 import { DeleteComponent } from './dialog/dialog-delete/delete/delete.component';
 import { EstoqueDialogComponent } from './dialog/dialog-estoque/estoque-dialog/estoque-dialog.component';
+import { EquipDialogComponent } from './dialog/dialog-Equip/equip-dialog/equip-dialog.component';
+import { ManutDialogComponent } from './dialog/dialog-Manut/manut-dialog/manut-dialog.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -72,6 +74,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     DialogDeleteSetorComponent,
     EstoqueDialogComponent,
     DeleteComponent,
+    EquipDialogComponent,
+    ManutDialogComponent,
   ],
   imports: [
     BrowserModule,

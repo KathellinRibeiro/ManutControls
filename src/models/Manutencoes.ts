@@ -1,9 +1,9 @@
 export class Manutencoes {
-    Id?: Number;
-    TipoManutencao?: string;
-    ResumoManutencao?: string;
+    _id?: string;
+    Tipo?: string;
+    Descricao?: string;
     StatusManutencao?: string;
-    DataAbertura?: Date;
-    Setor?: string;
-    Responsavel?: string;
+    Data?: Date;
+    Equipamento?: string;
+    Funcionario?: string;
 }

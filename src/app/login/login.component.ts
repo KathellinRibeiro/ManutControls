@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     
     this.loginService.getLogin(loginModel).subscribe((x) => {
       window.sessionStorage.setItem("x-access-token", x.token);
-      this.ngZone.run(() => this.router.navigateByUrl('/home') )
+      this.ngZone.run(() => this.router.navigateByUrl('/dashboard') )
     })
   }
 

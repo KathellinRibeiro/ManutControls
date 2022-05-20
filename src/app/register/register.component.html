@@ -6,20 +6,26 @@
         <form class="example-form">
             <mat-card-content>
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Nome" [(ngModel)]="usuario.nome" [ngModelOptions]="{standalone: true}">
+                    <input matInput placeholder="Nome" [(ngModel)]="usuarioNome" [ngModelOptions]="{standalone: true}">
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email" [(ngModel)]="usuario.email" [ngModelOptions]="{standalone: true}">
+                    <input matInput placeholder="Email" [(ngModel)]="usuarioEmail" [ngModelOptions]="{standalone: true}">
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Matrícula" [(ngModel)]="usuario.matricula" [ngModelOptions]="{standalone: true}">
+                    <input matInput placeholder="CPF" [(ngModel)]="usuarioCpf" [ngModelOptions]="{standalone: true}">
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Senha" [(ngModel)]="usuario.senha" [ngModelOptions]="{standalone: true}">
+                    <input matInput placeholder="Disponibilidade" [(ngModel)]="usuarioDisponibilidade" [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Data" [(ngModel)]="usuarioData" [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Senha" [(ngModel)]="usuarioSenha" type="password" [ngModelOptions]="{standalone: true}">
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
                     <mat-label>Escolha a função</mat-label>
-                    <mat-select>
+                    <mat-select [(value)]="usuarioCargo">
                         <mat-option [value]="roles" *ngFor="let roles of Roles">{{roles}}
                         </mat-option>
                     </mat-select>

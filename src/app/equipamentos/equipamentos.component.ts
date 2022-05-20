@@ -9,8 +9,10 @@ import { Result, ResultContent } from 'src/models/result';
 import { MessageService } from 'src/services/messageService';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Equipament } from 'src/models/equipamento';
-import { Criticidade } from 'src/models/Criticidade';
 import { EquipamentoService } from '../services/serviceEquipamento/equipamento.service';
+import {MatDialog} from '@angular/material/dialog';
+import { DeleteComponent } from '../dialog/dialog-delete/delete/delete.component';
+import { EquipDialogComponent } from '../dialog/dialog-Equip/equip-dialog/equip-dialog.component';
 
 import { List } from 'src/app/listTest/setor.js';
 import { Observable, Subject } from 'rxjs';
@@ -24,7 +26,10 @@ import { Status } from 'src/models/Status';
 
 var tipoEquip: Equipament[] = []
 
-var statusMaq: Status;
+var statusMaq: Equipament[] = [
+  { StatusDesc: "Ativo", Status: "Ativo" },
+  { StatusDesc: "Inativo", Status: "Inativo"},
+];
 
 /* var Setores: Equipament[] =
 [
@@ -40,12 +45,12 @@ var statusMaq: Status;
   { Setor: "Produção b" }
 ] */
 
-/* var Criticidade: Equipament[] =
+var Criticidade: Equipament[] =
 [
-  { CriticidadeDesc: "Baixa" },
-  { CriticidadeDesc: "Média" },
-  { CriticidadeDesc: "Alta" },
-] */
+  { Criticidade: "Baixa" },
+  { Criticidade: "Média" },
+  { Criticidade: "Alta" },
+]
 
 var tagsEquip: Equipament[] =
 [
@@ -77,21 +82,19 @@ export class EquipamentosComponent implements AfterViewInit {
   private _config: ConfigService;
   private _messager: MessageService;
   equipaments=tipoEquip;
-  statusMaqs=[];
-  status=Status;
-  crits=[];
-  criticidade=Criticidade;
+  statusMaqs=statusMaq;
+  crits=Criticidade;
   tags=tagsEquip;
   lists=list;
   
 
   equipamentoSelect: string;
-  statusSelect = null;
+  statusSelect: string;
   setorSelect: string;
-  critSelect = null;
+  critSelect: string;
   tagsSelect: string;
 
-  displayedColumns: string[] = ['id', 'Equipamento', 'Tag Equipamento', 'Status do Equipamento', 'Dia da Aquisição', 'Criticidade', 'Ações'];
+  displayedColumns: string[] = ['Equipamento', 'Tag Equipamento', 'Status do Equipamento', 'Dia da Aquisição', 'Setor', 'Criticidade', 'Ações'];
   dataSource: MatTableDataSource<Equipament>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -100,18 +103,17 @@ export class EquipamentosComponent implements AfterViewInit {
   constructor(http: HttpClient,
     config: ConfigService,
     messager: MessageService,
-    private equipamentoService: EquipamentoService) { 
+    private equipamentoService: EquipamentoService,
+    public dialog: MatDialog) { 
       this._config = config;
       this._http = http;
       this._messager = messager;
-
-      this.statusMaqs = Object.keys(this.status).filter(f => !isNaN(Number(f)));
-      this.crits = Object.keys(this.criticidade).filter(f => !isNaN(Number(f)));
 
       this.equipamentoService.getEquipamentos().subscribe(res => {
         console.log(res);
         console.log("Deu get denovo!");
         this.lists = res;
+        this.equipaments = res;
         this.dataSource = new MatTableDataSource<Equipament>(this.lists);
         this.dataSource.paginator = this.paginator;
       })
@@ -122,6 +124,123 @@ export class EquipamentosComponent implements AfterViewInit {
     ngAfterViewInit() {
       this.dataSource.paginator = this.paginator;
       //this.dataSource.sort = this.sort;
+    }
+
+    openDialog(equip: Equipament) {
+      /* this.dialog.open(EstoqueDialogComponent); */
+      var teste = equip;
+      const dialogRef = this.dialog.open(EquipDialogComponent, {
+        data: {
+          _id: equip._id,
+          Descricao: equip.Descricao,
+          dataEntrada: equip.dataEntrada,
+          Tag: equip.Tag,
+          Status: equip.Status,
+          Peca: equip.Peca,
+          Local: equip.Local,
+          Criticidade: equip.Criticidade,
+        }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log("Deu certo!");
+        var equipModel: Equipament = result;
+  
+        this.equipamentoService.updateEquipamento(equipModel._id, equipModel).subscribe(() => {
+          console.log("Deu certo denovo cara!");
+        })
+  
+        this.equipamentoService.getEquipamentos().subscribe(res => {
+          console.log(res);
+          console.log("Deu get denovo!");
+          this.lists = res;
+          this.equipaments = res;
+          this.dataSource = new MatTableDataSource<Equipament>(this.lists);
+          this.dataSource.paginator = this.paginator;
+        })
+
+        this.equipamentoService.getEquipamentos().subscribe(res => {
+          console.log(res);
+          console.log("Deu get denovo!");
+          this.lists = res;
+          this.equipaments = res;
+          this.dataSource = new MatTableDataSource<Equipament>(this.lists);
+          this.dataSource.paginator = this.paginator;
+        })
+      });
+    }
+
+    openDialogAdd(){
+      const dialogRef = this.dialog.open(EquipDialogComponent, {
+        data: {
+          _id: '',
+          Descricao: '',
+          dataEntrada: '',
+          Tag: '',
+          Status: '',
+          Peca: '',
+          Local: '',
+          Criticidade: '',
+
+        }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('Incluiu!');
+        var equipModel: Equipament = result;
+  
+        equipModel._id = "";
+  
+        this.equipamentoService.adicionalEquipamento(equipModel).subscribe(() => {
+          console.log('Incluiu de vdd!');
+        })
+  
+        this.equipamentoService.getEquipamentos().subscribe(res => {
+          console.log(res);
+          console.log("Deu get denovo!");
+          this.lists = res;
+          this.equipaments = res;
+          this.dataSource = new MatTableDataSource<Equipament>(this.lists);
+          this.dataSource.paginator = this.paginator;
+        })
+      })
+
+      
+    }
+
+    openDialogDelete(equip: Equipament){
+      const dialogRef = this.dialog.open(DeleteComponent, {
+        data: {
+          _id: equip._id,
+        }
+      })
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('por enquanto, blz');
+        var equipModal: Equipament = result;
+  
+        this.equipamentoService.deleteEquipamento(equipModal._id).subscribe(() => {
+          console.log('Excluiu!');
+        })
+  
+        this.equipamentoService.getEquipamentos().subscribe(res => {
+          console.log(res);
+          console.log("Deu get denovo!");
+          this.lists = res;
+          this.equipaments = res;
+          this.dataSource = new MatTableDataSource<Equipament>(this.lists);
+          this.dataSource.paginator = this.paginator;
+        })
+
+        this.equipamentoService.getEquipamentos().subscribe(res => {
+          console.log(res);
+          console.log("Deu get denovo!");
+          this.lists = res;
+          this.equipaments = res;
+          this.dataSource = new MatTableDataSource<Equipament>(this.lists);
+          this.dataSource.paginator = this.paginator;
+        })
+      })
     }
 
   tipoEquipamentoFilter() {
