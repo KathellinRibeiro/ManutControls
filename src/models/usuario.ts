@@ -1,62 +1,62 @@
 
 export class Usuario {
-  nome: string;
+  Nome: string;
   CPF: String;
-  email: string;
-  senha: string;
-  cargo: string;
-  disponibilidade: String;
-  data: Date;
+  Email: string;
+  Senha: string;
+  Cargo: string;
+  Disponibilidade: String;
+  Data: Date;
 
   constructor( Nome?,Cpf?, Email?, Senha?,Cargo?,Disponibilidade?,Data?){
-    this.nome = Nome || "";
+    this.Nome = Nome || "";
     this.CPF = Cpf || "";
-    this.email = Email|| "";
-    this.senha = Senha || "";
-    this.cargo = Cargo || "";
-    this.disponibilidade= Disponibilidade || "";
-    this.data = Data || "";
+    this.Email = Email|| "";
+    this.Senha = Senha || "";
+    this.Cargo = Cargo || "";
+    this.Disponibilidade= Disponibilidade || "";
+    this.Data = Data || "";
   }
   getNome(){
-    return this.nome;
+    return this.Nome;
   }
   getCPF(){
     return this.CPF;
   }
   getEmail(){
-    return this.email;
+    return this.Email;
   }
   getSenha() {
-    return this.senha;
+    return this.Senha;
   }
   getCargo(){
-    return this.cargo;
+    return this.Cargo;
   }
   getDisponibilidade(){
-    return this.disponibilidade;
+    return this.Disponibilidade;
   }
   getData(){
-    return this.data;
+    return this.Data;
   }
-  setNome(nome){
-    this.nome = nome;
+  setNome(Nome){
+    this.Nome = Nome;
   }
   setCPF(CPF){
     this.CPF = CPF;
   }
-  setEmail(email) {
-    this.email = email;
+  setEmail(Email) {
+    this.Email = Email;
   }
-  setSenha(senha) {
-    this.senha = senha;
+  setSenha(Senha) {
+    this.Senha = Senha;
   }
-  setCargo(cargo) {
-    this.cargo = cargo;
+  setCargo(Cargo) {
+    this.Cargo = Cargo;
   }
-  setDisponibilidade(disponibilidade){
-    this.disponibilidade = disponibilidade;
+  setDisponibilidade(Disponibilidade){
+    this.Disponibilidade = Disponibilidade;
   }
-  setData(data){
-    this.data=data;
+  setData(Data){
+    this.Data=Data;
   }
 }

@@ -96,6 +96,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
     this.registerService.registraUsuario(usuarioModel).subscribe((x) => {
+      console.log("Cadastrou!");
       this.ngZone.run(() => this.router.navigateByUrl('/login') )
     })
   }
