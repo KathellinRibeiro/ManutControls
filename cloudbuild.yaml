@@ -1,15 +1,15 @@
 steps:
  # install dependencies for angular app
   - name: node:14.15.0
-    entrypoint: npm:node-14.15.0
+    entrypoint: npm
     args: ["install"]
 
   # build production ready frontend angular app
   - name: node:14.15.0
-    entrypoint: npm:node-14.15.0
+    entrypoint: npm
     args: ["run", "build", "--prod"]
 
   # deploy to google cloud app engine
   - name: node:14.15.0
-    entrypoint: npm:node-14.15.0
+    entrypoint: npm
     args: ["app", "deploy", "--version=prod"]
