@@ -1,5 +1,9 @@
 steps:
 
+  # node version
+  - name: node
+    entrypoint: npm
+
   # install dependencies for angular app
   - name: "gcr.io/cloud-builders/npm"
     args: ["install"]
