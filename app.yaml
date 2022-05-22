@@ -1,0 +1,16 @@
+runtine: python27
+api_version: 1
+threadsafe: 1
+
+handlers:
+  - url: /
+    static_files: dist/manut-controls/index.html
+    upload: dist/manut-controls/index.html
+  - url: /
+    static_dir: dist/manut-controls
+
+skip_files:
+  - node_modules/
+  - e2e/
+  - src/
+  - ^LICENSE
