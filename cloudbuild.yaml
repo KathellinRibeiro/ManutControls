@@ -1,7 +1,7 @@
 steps:
 
   # node version
-  - name: node
+  - name: node:14.15
     entrypoint: npm
     args: ["install"]
 
