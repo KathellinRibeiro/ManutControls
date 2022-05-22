@@ -10,6 +10,5 @@ steps:
     args: ["run", "build", "--prod"]
 
   # deploy to google cloud app engine
-  - name: node:14.15.0
-    entrypoint: npm
+  - name: gcloud
     args: ["app", "deploy", "--version=prod"]
