@@ -1,6 +1,12 @@
 steps:
+ # install dependencies for angular app
+  - name: "gcr.io/cloud-builders/npm:node-14.15.1"
+    args: ["install"]
 
-  # node version
-  - name: node:14.15
-    entrypoint: npm
-    args: ["install", "start"]
+  # build production ready frontend angular app
+  - name: "gcr.io/cloud-builders/npm:node-14.15.1"
+    args: ["run", "build", "--prod"]
+
+  # deploy to google cloud app engine
+  - name: "gcr.io/cloud-builders/npm:node-14.15.1"
+    args: ["app", "deploy", "--version=prod"]
