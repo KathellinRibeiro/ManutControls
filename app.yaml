@@ -1,16 +1,19 @@
-runtine: python27
+runtime: python27
 api_version: 1
-threadsafe: 1
-
+threadsafe: true
 handlers:
   - url: /
     static_files: dist/manut-controls/index.html
     upload: dist/manut-controls/index.html
   - url: /
     static_dir: dist/manut-controls
-
 skip_files:
-  - node_modules/
   - e2e/
+  - node_modules/
   - src/
+  - coverage
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.json$
+  - ^(.*/)?.*\.md$
+  - ^(.*/)?.*\.yaml$
   - ^LICENSE
